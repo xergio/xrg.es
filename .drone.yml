@@ -3,6 +3,11 @@ type: docker
 name: default
 
 steps:
+- name: say-hello
+  image: busybox
+  commands:
+  - echo hello-world
+
 - name: backend
   image: composer
   commands:
