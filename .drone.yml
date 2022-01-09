@@ -1,0 +1,14 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+- name: backend
+  image: composer
+  commands:
+  - cd backend && composer install
+
+- name: frontend
+  image: node
+  commands:
+  - cd frontend && npm install
