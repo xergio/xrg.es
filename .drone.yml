@@ -32,16 +32,5 @@ steps:
       {{else}}
         {{build.event}}: build #{{build.number}} failed.
       {{/success}}
-      Build Duration: {{since build.started}}
-
-      {{#success build.status}}
-        ✅ **{{repo.name}} - Build #{{build.number}}**
-        - Started at {{datetime build.started \"2006-01-02 15:04:05\" \"America/Chicago\"}} and finished at {{datetime build.finished \"2006-01-02 15:04:05\" \"America/Chicago\"}}
-        - Build Duration: {{duration build.started build.finished}}
-        {{build.link}}
-      {{else}}
-        ❌ **{{repo.name}} - Build #{{build.number}}
-        - Started at {{datetime build.started \"2006-01-02 15:04:05\" \n\"America/Chicago\"}} and finished at {{datetime build.finished \"2006-01-02 15:04:05\" \"America/Chicago\"}}
-        - Build Duration: {{duration build.started build.finished}}
-        {{build.link}}
-      {{/success}}
+      {{build.link}}
+      {{datetime build.started}} - {{since build.started}}
