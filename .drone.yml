@@ -26,3 +26,22 @@ steps:
     webhook_token:
       from_secret: discord_webhook_token
     username: Drone
+    message: >
+      {{#success build.status}}
+        {{build.event}}: build #{{build.number}} succeeded.
+      {{else}}
+        {{build.event}}: build #{{build.number}} failed.
+      {{/success}}
+      Build Duration: {{since build.started}}
+
+      {{#success build.status}}
+        ✅ **{{repo.name}} - Build #{{build.number}}**
+        - Started at {{datetime build.started \"2006-01-02 15:04:05\" \"America/Chicago\"}} and finished at {{datetime build.finished \"2006-01-02 15:04:05\" \"America/Chicago\"}}
+        - Build Duration: {{duration build.started build.finished}}
+        {{build.link}}
+      {{else}}
+        ❌ **{{repo.name}} - Build #{{build.number}}
+        - Started at {{datetime build.started \"2006-01-02 15:04:05\" \n\"America/Chicago\"}} and finished at {{datetime build.finished \"2006-01-02 15:04:05\" \"America/Chicago\"}}
+        - Build Duration: {{duration build.started build.finished}}
+        {{build.link}}
+      {{/success}}
