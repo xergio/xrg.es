@@ -33,4 +33,4 @@ steps:
         {{build.event}}: build #{{build.number}} failed.
       {{/success}}
       {{build.link}}
-      {{datetime build.started}} - {{since build.started}}
+      {{since build.started}}
