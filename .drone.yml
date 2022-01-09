@@ -17,3 +17,12 @@ steps:
   image: node
   commands:
   - cd frontend && npm install
+
+- name: discord notification
+  image: appleboy/drone-discord
+  settings:
+    webhook_id:
+      from_secret: discord_webhook_id
+    webhook_token:
+      from_secret: discord_webhook_token
+    username: Drone
