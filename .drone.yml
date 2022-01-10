@@ -64,7 +64,7 @@ steps:
   commands:
     - echo $username
     - docker login -u $username -p $password https://registry.xrg.io
-    - docker-compose up -d -f docker/docker-compose.prod.yml
+    - docker-compose -f docker/docker-compose.prod.yml up -d
   volumes:
   - name: host_docker_sock
     path: /var/run/docker.sock
