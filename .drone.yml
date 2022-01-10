@@ -17,7 +17,7 @@ steps:
   image: plugins/docker
   settings:
     context: docker/
-    dockerfile: Dockerfile
+    dockerfile: docker/Dockerfile
     auto_tag: true
     repo: https://registry.xrg.io/salvarez/xrg.es
     registry: https://registry.xrg.io
