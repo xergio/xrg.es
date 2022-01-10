@@ -7,11 +7,17 @@ steps:
   image: composer:2.1.14
   commands:
   - cd backend && composer install
+  volumes:
+  - name: host_docker_sock
+    path: /tmp/cache
 
 - name: frontend
   image: node:16.13.1-alpine
   commands:
   - cd frontend && npm install && npm run build
+  volumes:
+  - name: host_docker_sock
+    path: /tmp/cache
 
 - name: build-docker-image
   image: plugins/docker
@@ -25,6 +31,14 @@ steps:
       from_secret: registry_username
     password:
       from_secret: registry_password
+  volumes:
+  - name: host_docker_sock
+    path: /tmp/cache
   #when:
   #  event:
   #  - tag
+
+volumes:
+- name: host_docker_sock
+  host:
+    path: /var/run/docker.sock
