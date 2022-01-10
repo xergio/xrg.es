@@ -22,7 +22,6 @@ steps:
 - name: build-docker-image
   image: plugins/docker
   settings:
-    context: docker/
     dockerfile: docker/Dockerfile.drone
     auto_tag: true
     repo: registry.xrg.io/xrg.es
