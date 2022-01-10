@@ -4,12 +4,12 @@ name: default
 
 steps:
 - name: backend
-  image: composer:2.1.14
+  image: composer:2.1.14-alpine
   commands:
   - cd backend && composer install
 
 - name: frontend
-  image: node:16.13.1
+  image: node:16.13.1-alpine
   commands:
   - cd frontend && npm install && npm run build
 
@@ -17,7 +17,7 @@ steps:
   image: plugins/docker
   settings:
     context: docker/
-    dockerfile: docker/Dockerfile
+    dockerfile: docker/Dockerfile.drone
     auto_tag: true
     repo: registry.xrg.io/xrg.es
     registry: https://registry.xrg.io
