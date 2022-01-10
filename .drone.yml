@@ -3,8 +3,21 @@ type: docker
 name: default
 
 steps:
-- name: say-hello
-  image: busybox
+- name: backend
+  image: composer
   commands:
-  - echo hello-world
-  - echo $(pwd) $(id)
+  - cd backend && composer install
+
+- name: frontend
+  image: node
+  commands:
+  - cd frontend && npm install && npm run build
+
+- name: discord notification
+  image: appleboy/drone-discord
+  settings:
+    webhook_id:
+      from_secret: discord_webhook_id
+    webhook_token:
+      from_secret: discord_webhook_token
+    username: Drone
