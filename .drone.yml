@@ -33,6 +33,9 @@ steps:
   volumes:
   - name: host_docker_sock
     path: /var/run/docker.sock
+  depends_on:
+  - frontend
+  - backend
   #when:
   #  event:
   #  - tag
