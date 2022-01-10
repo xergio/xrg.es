@@ -44,3 +44,6 @@ volumes:
 - name: host_docker_sock
   host:
     path: /var/run/docker.sock
+
+node:
+  location: home
