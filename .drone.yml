@@ -4,20 +4,21 @@ name: default
 
 steps:
 - name: backend
-  image: composer
+  image: composer:2.1.14
   commands:
   - cd backend && composer install
 
 - name: frontend
-  image: node
+  image: node:16.13.1
   commands:
   - cd frontend && npm install && npm run build
 
 - name: build-docker-image
   image: plugins/docker
   settings:
+    context: docker/
+    dockerfile: Dockerfile
     auto_tag: true
-    dockerfile: docker/Dockerfile
     repo: https://registry.xrg.io/salvarez/xrg.es
     registry: https://registry.xrg.io
     username:
@@ -27,12 +28,3 @@ steps:
   #when:
   #  event:
   #  - tag
-
-- name: discord notification
-  image: appleboy/drone-discord
-  settings:
-    webhook_id:
-      from_secret: discord_webhook_id
-    webhook_token:
-      from_secret: discord_webhook_token
-    username: Drone
