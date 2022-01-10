@@ -19,7 +19,7 @@ steps:
     context: docker/
     dockerfile: docker/Dockerfile
     auto_tag: true
-    repo: https://registry.xrg.io/salvarez/xrg.es
+    repo: registry.xrg.io/xrg.es
     registry: https://registry.xrg.io
     username:
       from_secret: registry_username
