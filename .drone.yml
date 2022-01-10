@@ -4,7 +4,7 @@ name: default
 
 steps:
 - name: backend
-  image: composer:2.1.14-alpine
+  image: composer:2.1.14
   commands:
   - cd backend && composer install
 
