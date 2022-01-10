@@ -1,6 +1,6 @@
 kind: pipeline
 type: docker
-name: default
+name: build
 
 steps:
 - name: backend
@@ -47,3 +47,30 @@ volumes:
 
 node:
   location: home
+
+---
+kind: pipeline
+type: docker
+name: deploy
+
+steps:
+- name: run
+  image: docker/compose:1.29.2
+  environment:
+    username:
+      from_secret: registry_username
+    password:
+      from_secret: registry_password  
+  commands:
+    - echo $username
+    - docker login -u $username -p $password https://registry.xrg.io
+    - docker-compose up -d
+  volumes:
+  - name: docker
+    path: /var/run/docker.sock
+
+node:
+  location: do1
+
+depends_on:
+- build
