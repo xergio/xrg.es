@@ -1,6 +1,6 @@
-FROM php:8.1-fpm-buster
+FROM php:8.1-fpm-alpine
 
-RUN apt update && apt install -y curl git
+RUN apk add --no-cache curl git
 
 # https://github.com/mlocati/docker-php-extension-installer
 # https://github.com/mlocati/docker-php-extension-installer#special-requirements
@@ -10,9 +10,7 @@ RUN curl -sSLf -o /usr/local/bin/install-php-extensions \
 
 RUN install-php-extensions opcache redis timezonedb
 
-RUN apt clean autoclean && \
-    apt autoremove -y && \
-    rm -rf /var/lib/apt/lists/*
+RUN rm -rf /var/cache/apk/*
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 COPY docker/zz-custom-php.ini "$PHP_INI_DIR/conf.d/"
