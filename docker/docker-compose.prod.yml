@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   xrges-nginx:
-    image: registry.xrg.io/xrg.es/nginx:latest
+    image: registry.xrg.io/xrges/nginx:latest
     restart: unless-stopped
     ports:
       - "8086:80"
@@ -10,11 +10,11 @@ services:
       - xrges-php
 
   xrges-php:
-    image: registry.xrg.io/xrg.es/php:latest
+    image: registry.xrg.io/xrges/php:latest
     restart: unless-stopped
 
   xrges-redis:
-    image: registry.xrg.io/xrg.es/redis:latest
+    image: registry.xrg.io/xrges/redis:latest
     restart: unless-stopped
     volumes:
       - ./redis:/data

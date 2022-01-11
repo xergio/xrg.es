@@ -24,7 +24,7 @@ steps:
   settings:
     dockerfile: docker/Dockerfile.php
     auto_tag: true
-    repo: registry.xrg.io/xrg.es
+    repo: registry.xrg.io/xrges/php
     registry: https://registry.xrg.io
     username:
       from_secret: registry_username
@@ -42,7 +42,7 @@ steps:
   settings:
     dockerfile: docker/Dockerfile.nginx
     auto_tag: true
-    repo: registry.xrg.io/xrg.es
+    repo: registry.xrg.io/xrges/nginx
     registry: https://registry.xrg.io
     username:
       from_secret: registry_username
@@ -60,7 +60,7 @@ steps:
   settings:
     dockerfile: docker/Dockerfile.redis
     auto_tag: true
-    repo: registry.xrg.io/xrg.es
+    repo: registry.xrg.io/xrges/redis
     registry: https://registry.xrg.io
     username:
       from_secret: registry_username
