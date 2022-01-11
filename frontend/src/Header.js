@@ -32,7 +32,7 @@ export default class Header extends Component {
         <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
                 <Nav.Link href="/">RegExp</Nav.Link>
-                <Nav.Link href="/dencode">D/Encode</Nav.Link>
+                <Nav.Link href="https://dencode.xrg.es">D/Encode</Nav.Link>
             </Nav>
             <Nav>
             {this.props.hash && 
