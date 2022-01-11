@@ -74,7 +74,7 @@ export default class App extends Component {
         const hash = window.location.hash.replace(/^#/, '')
 
         if (hash && hash !== 'close' && hash !== 'help' && hash !== this.state.response.hash) {
-            axios.get(this.apiUrl, { params: { hash } }).then((res) => {
+            axios.get('/api/preg', { params: { hash } }).then((res) => {
                 this.setState({ ...res.data, response: {} }, () => {
                     this.api()
                 })
@@ -101,7 +101,7 @@ export default class App extends Component {
     api = () => {
         const { response, help, ...state } = this.state
 
-        axios.post(this.apiUrl, state).then((res) => {
+        axios.post('/api/preg', state).then((res) => {
             this.setState({ response: res.data }, () => {
                 if ('hash' in res.data) {
                     window.location.hash = '#'+res.data.hash;
