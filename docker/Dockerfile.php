@@ -14,11 +14,11 @@ RUN apt clean autoclean && \
     apt autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
-RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
-RUN chown -R www-data:www-data /var/www
-
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 COPY docker/zz-custom-php.ini "$PHP_INI_DIR/conf.d/"
 COPY docker/zz-custom-phpfpm.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 
 COPY backend /var/www/backend
+
+RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
+RUN chown -R www-data:www-data /var/www
