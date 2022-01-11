@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Entity\PregDTO;
 use App\Service\Preg;
 use Exception;
+use Redis;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +25,7 @@ class PregController extends AbstractController
     private const STORE_TTL = 60*60*24*7;
 
     #[Route('/api/preg', name: 'api_preg_post', methods: ["POST"])]
-    public function index(Request $request, SerializerInterface $serializer, \Redis $redis): Response
+    public function index(Request $request, SerializerInterface $serializer, Redis $redis): Response
     {
         $dto = $serializer->deserialize($request->getContent(), PregDTO::class, 'json');
 
@@ -42,7 +43,7 @@ class PregController extends AbstractController
     }
 
     #[Route('/api/preg', name: 'api_preg_hash', methods: ["GET"])]
-    public function hash(Request $request, \Redis $redis): Response
+    public function hash(Request $request, Redis $redis): Response
     {
         $json = $redis->get(sprintf(self::STORE_KEY, $request->query->get('hash')));
 
