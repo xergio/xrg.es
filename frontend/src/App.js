@@ -39,7 +39,7 @@ export default class App extends Component {
         }
 
         this.timer = null
-        this.apiUrl = window.location.href +'api/preg'
+        this.apiUrl = '/api/preg'
         //this.apiUrl = 'http://localhost:8086/api/preg'
         this.maps = {
             'preg_match': {
