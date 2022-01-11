@@ -55,7 +55,7 @@ class PregController extends AbstractController
     }
 
     #[Route('/api/ppii', name: 'api_ppii', methods: ["GET"])]
-    public function ppii(Request $request, Redis $redis): Response
+    public function ppii(): Response
     {
         ob_start();
         phpinfo();
