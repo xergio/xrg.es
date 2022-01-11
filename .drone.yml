@@ -101,7 +101,7 @@ steps:
     - echo $username
     - docker login -u $username -p $password https://registry.xrg.io
     - docker-compose -f docker/docker-compose.prod.yml stop
-    - docker-compose -f docker/docker-compose.prod.yml rm -f
+    #- docker-compose -f docker/docker-compose.prod.yml rm -f
     - docker-compose -f docker/docker-compose.prod.yml pull
     - docker-compose -f docker/docker-compose.prod.yml up -d
   volumes:
