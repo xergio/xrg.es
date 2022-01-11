@@ -6,7 +6,7 @@ steps:
 - name: backend
   image: composer:2.1.14
   commands:
-  - mkdir -p /var/www && ln -s /drone/src /var/www && ls -la /var/www && cd /var/www/backend && composer install && composer dump-autoload --classmap-authoritative && composer dump-env prod
+  - ln -s /drone/src/backend /var/www/backend && ls -la /var/www && cd /var/www/backend && composer install && composer dump-autoload --classmap-authoritative && composer dump-env prod
 
 - name: frontend
   image: node:16.13.1-alpine
