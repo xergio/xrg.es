@@ -39,8 +39,7 @@ export default class App extends Component {
         }
 
         this.timer = null
-        this.apiUrl = '/api/preg'
-        //this.apiUrl = 'http://localhost:8086/api/preg'
+        
         this.maps = {
             'preg_match': {
                 'fields': ['pattern', 'subject'],
