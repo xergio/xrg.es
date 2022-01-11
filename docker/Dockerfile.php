@@ -18,5 +18,4 @@ COPY docker/zz-custom-phpfpm.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 
 COPY backend /var/www/backend
 
-RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
 RUN chown -R www-data:www-data /var/www
