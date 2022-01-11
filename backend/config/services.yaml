@@ -27,7 +27,6 @@ services:
     Redis:
         # you can also use \RedisArray, \RedisCluster or \Predis\Client classes
         class: \Redis
-        public: true
         calls:
             - connect:
                   - '%env(REDIS_HOST)%'
