@@ -8,7 +8,7 @@ RUN curl -sSLf -o /usr/local/bin/install-php-extensions \
         https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions && \
     chmod +x /usr/local/bin/install-php-extensions
 
-RUN install-php-extensions opcache redis timezonedb
+RUN install-php-extensions apcu intl opcache redis timezonedb
 
 RUN rm -rf /var/cache/apk/*
 
