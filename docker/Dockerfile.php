@@ -21,5 +21,4 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 COPY docker/zz-custom-php.ini "$PHP_INI_DIR/conf.d/"
 COPY docker/zz-custom-phpfpm.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 
-COPY frontend/build /var/www/frontend
 COPY backend /var/www/backend

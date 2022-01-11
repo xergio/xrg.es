@@ -2,28 +2,22 @@ version: '3.8'
 
 services:
   xrges-nginx:
-    image: nginx:latest
+    image: registry.xrg.io/xrg.es/nginx:latest
     restart: unless-stopped
     ports:
       - "8086:80"
-    volumes:
-      - ../frontend/build:/var/www/frontend
-      - ./zz-default-nginx.conf:/etc/nginx/conf.d/default.conf
     links:
       - xrges-php
 
   xrges-php:
-    build: .
+    image: registry.xrg.io/xrg.es/php:latest
     restart: unless-stopped
-    volumes:
-      - ../backend:/var/www/backend
 
   xrges-redis:
-    image: redis:latest
+    image: registry.xrg.io/xrg.es/redis:latest
     restart: unless-stopped
     volumes:
-      - ../home/redis:/data
-      - ./redis.conf:/usr/local/etc/redis/redis.conf
+      - ./redis:/data
     command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
 
 networks:

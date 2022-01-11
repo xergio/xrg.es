@@ -19,10 +19,10 @@ steps:
   - name: host_docker_sock
     path: /var/run/docker.sock
 
-- name: build-docker-image
+- name: build-php-image
   image: plugins/docker
   settings:
-    dockerfile: docker/Dockerfile.drone
+    dockerfile: docker/Dockerfile.php
     auto_tag: true
     repo: registry.xrg.io/xrg.es
     registry: https://registry.xrg.io
@@ -36,9 +36,42 @@ steps:
   depends_on:
   - frontend
   - backend
-  #when:
-  #  event:
-  #  - tag
+
+- name: build-nginx-image
+  image: plugins/docker
+  settings:
+    dockerfile: docker/Dockerfile.nginx
+    auto_tag: true
+    repo: registry.xrg.io/xrg.es
+    registry: https://registry.xrg.io
+    username:
+      from_secret: registry_username
+    password:
+      from_secret: registry_password
+  volumes:
+  - name: host_docker_sock
+    path: /var/run/docker.sock
+  depends_on:
+  - frontend
+  - backend
+
+- name: build-redis-image
+  image: plugins/docker
+  settings:
+    dockerfile: docker/Dockerfile.redis
+    auto_tag: true
+    repo: registry.xrg.io/xrg.es
+    registry: https://registry.xrg.io
+    username:
+      from_secret: registry_username
+    password:
+      from_secret: registry_password
+  volumes:
+  - name: host_docker_sock
+    path: /var/run/docker.sock
+  depends_on:
+  - frontend
+  - backend
 
 volumes:
 - name: host_docker_sock

@@ -1,0 +1,4 @@
+FROM nginx:latest
+
+COPY docker/zz-default-nginx.conf /etc/nginx/conf.d/default.conf
+COPY frontend/build /var/www/frontend
