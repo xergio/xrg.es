@@ -53,12 +53,4 @@ class PregController extends AbstractController
 
         return JsonResponse::fromJsonString($json);
     }
-
-    #[Route('/api/ppii', name: 'api_ppii', methods: ["GET"])]
-    public function ppii(): Response
-    {
-        ob_start();
-        phpinfo();
-        return new Response(ob_get_clean());
-    }
 }
