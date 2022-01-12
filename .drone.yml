@@ -24,8 +24,6 @@ steps:
     registry: https://registry.xrg.io
     cache_from: registry.xrg.io/xrges/php:latest
     auto_tag: true
-    tags:
-      - latest
     username:
       from_secret: registry_username
     password:
@@ -42,8 +40,6 @@ steps:
     registry: https://registry.xrg.io
     cache_from: registry.xrg.io/xrges/nginx:latest
     auto_tag: true
-    tags:
-      - latest
     username:
       from_secret: registry_username
     password:
@@ -59,13 +55,11 @@ steps:
     repo: registry.xrg.io/xrges/redis
     registry: https://registry.xrg.io
     cache_from: registry.xrg.io/xrges/redis:latest
+    auto_tag: true
     username:
       from_secret: registry_username
     password:
       from_secret: registry_password
-    auto_tag: true
-    tags:
-      - latest
   depends_on:
   - frontend
   - backend
@@ -77,10 +71,6 @@ volumes:
 
 node:
   location: home
-
-trigger:
-  event:
-  - tag
 
 ---
 kind: pipeline
@@ -116,7 +106,3 @@ node:
 
 depends_on:
 - build
-
-trigger:
-  event:
-  - tag
