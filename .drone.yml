@@ -20,6 +20,7 @@ steps:
     auto_tag: true
     repo: registry.xrg.io/xrges/php
     registry: https://registry.xrg.io
+    cache_from: registry.xrg.io/xrges/php:latest
     username:
       from_secret: registry_username
     password:
