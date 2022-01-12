@@ -72,6 +72,10 @@ volumes:
 node:
   location: home
 
+trigger:
+  event:
+  - tag
+
 ---
 kind: pipeline
 type: docker
