@@ -12,6 +12,9 @@ steps:
   image: node:16.13.1-alpine
   commands:
   - cd frontend && npm install && npm run build
+  volumes:
+  - name: cache
+    path: /drone/src/frontend/node_modules
 
 - name: build-php-image
   image: plugins/docker
@@ -36,6 +39,7 @@ steps:
     auto_tag: true
     repo: registry.xrg.io/xrges/nginx
     registry: https://registry.xrg.io
+    cache_from: registry.xrg.io/xrges/nginx:latest
     username:
       from_secret: registry_username
     password:
@@ -51,6 +55,7 @@ steps:
     auto_tag: true
     repo: registry.xrg.io/xrges/redis
     registry: https://registry.xrg.io
+    cache_from: registry.xrg.io/xrges/redis:latest
     username:
       from_secret: registry_username
     password:
@@ -58,6 +63,11 @@ steps:
   depends_on:
   - frontend
   - backend
+
+volumes:
+- name: cache
+  host:
+    path: /tmp/drone/cache/node_modules
 
 node:
   location: home
