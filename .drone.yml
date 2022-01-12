@@ -11,7 +11,7 @@ steps:
 - name: frontend
   image: node:16.13.1-alpine
   commands:
-  - cd frontend && npm install && npm run build
+  - cd frontend && npm install && REACT_APP_GIT_SHA="${DRONE_BRANCH//\//-}-${DRONE_COMMIT_SHA:0:8}" npm run build
   volumes:
   - name: cache
     path: /drone/src/frontend/node_modules

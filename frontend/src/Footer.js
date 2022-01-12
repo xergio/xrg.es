@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { BsFileEarmarkCodeFill, BsTwitter } from "react-icons/bs";
+import { BsTwitter } from "react-icons/bs";
 
 export default class Footer extends Component {
   render() {
@@ -9,7 +9,7 @@ export default class Footer extends Component {
     <small>
         Coded by <a href="https://twitter.com/xergio">Sergio Álvarez <BsTwitter /></a>{' '}
         <span className="text-muted">¦</span>{' '}
-        <a href="https://sergio.am/code/xrg.es"><BsFileEarmarkCodeFill /></a></small>
+        Build <a href="https://sergio.am/code/xrg.es"><tt>{process.env.REACT_APP_GIT_SHA}</tt></a></small>
 </footer>
     )
   }
