@@ -110,3 +110,7 @@ node:
 
 depends_on:
 - build
+
+trigger:
+  event:
+  - tag
