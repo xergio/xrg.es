@@ -3,8 +3,6 @@
 declare(strict_types=1);
 
 use App\Kernel;
-use Redis;
-$r = new Redis();
 
 require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
 
