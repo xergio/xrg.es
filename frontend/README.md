@@ -1,3 +1,16 @@
+# Docker
+
+```shell
+docker run --rm -it --name npmbuild --user 1000:1000 -v $(pwd):/app --workdir /app node npm install
+docker run --rm -it --name npmbuild --user 1000:1000 -v $(pwd):/app --workdir /app node npm run build
+```
+
+Dev server:
+
+```shell
+docker run --rm -it --name npmbuild --user 1000:1000 -v $(pwd):/app --workdir /app -p 3000:3000 node npm start
+```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
