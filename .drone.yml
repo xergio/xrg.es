@@ -6,7 +6,7 @@ steps:
 - name: backend
   image: composer:2.1.14
   commands:
-  - cd backend && composer install && composer dump-autoload --classmap-authoritative && composer dump-env prod && rm -rf var/cache/prod
+  - cd backend && composer install && composer dump-autoload --classmap-authoritative && composer dump-env prod && rm -rf var/cache && php bin/console cache:warmup --env=prod
 
 - name: frontend
   image: node:16.13.1-alpine
