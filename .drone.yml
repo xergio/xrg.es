@@ -28,6 +28,7 @@ steps:
       - rm -rf /var/www-xrg.es/*
       - mv backend /var/www-xrg.es/backend
       - mv frontend/build /var/www-xrg.es/frontend
+      - chown -R 82:82 /var/www-xrg.es/backend/var
 
 node:
   location: hub
