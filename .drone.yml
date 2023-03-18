@@ -26,6 +26,7 @@ steps:
     image: public.ecr.aws/docker/library/busybox:latest
     commands:
       - rm -rf /var/www-xrg.es/*
+      - ls -la .
       - mv backend /var/www-xrg.es/backend
       - mv frontend/build /var/www-xrg.es/frontend
 
