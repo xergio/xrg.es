@@ -3,106 +3,31 @@ type: docker
 name: build
 
 steps:
-- name: backend
-  image: composer:2.1.14
-  commands:
-  - cd backend && composer install && composer dump-autoload --classmap-authoritative && composer dump-env prod && rm -rf var/cache
+  - name: build-backend
+    image: public.ecr.aws/composer/composer:latest
+    commands:
+    - cd backend
+    - composer install
+    - composer dump-autoload --classmap-authoritative
+    - composer dump-env prod
+    - rm -rf var/cache
 
-- name: frontend
-  image: node:16.13.1-alpine
-  commands:
-  - cd frontend && npm install && REACT_APP_GIT_SHA="${DRONE_COMMIT_SHA:0:10}" npm run build
-  volumes:
-  - name: cache
-    path: /drone/src/frontend/node_modules
+  - name: build-frontend
+    image: public.ecr.aws/docker/library/node:16.13.1-alpine
+    commands:
+    - cd frontend
+    - npm install
+    - REACT_APP_GIT_SHA="${DRONE_COMMIT_SHA:0:10}" npm run build
+    volumes:
+    - name: cache
+      path: /drone/src/frontend/node_modules
 
-- name: build-php-image
-  image: plugins/docker
-  settings:
-    dockerfile: docker/Dockerfile.php
-    repo: registry.xrg.io/xrges/php
-    registry: https://registry.xrg.io
-    cache_from: registry.xrg.io/xrges/php:latest
-    auto_tag: true
-    username:
-      from_secret: registry_username
-    password:
-      from_secret: registry_password
-  depends_on:
-  - frontend
-  - backend
-
-- name: build-nginx-image
-  image: plugins/docker
-  settings:
-    dockerfile: docker/Dockerfile.nginx
-    repo: registry.xrg.io/xrges/nginx
-    registry: https://registry.xrg.io
-    cache_from: registry.xrg.io/xrges/nginx:latest
-    auto_tag: true
-    username:
-      from_secret: registry_username
-    password:
-      from_secret: registry_password
-  depends_on:
-  - frontend
-  - backend
-
-- name: build-redis-image
-  image: plugins/docker
-  settings:
-    dockerfile: docker/Dockerfile.redis
-    repo: registry.xrg.io/xrges/redis
-    registry: https://registry.xrg.io
-    cache_from: registry.xrg.io/xrges/redis:latest
-    auto_tag: true
-    username:
-      from_secret: registry_username
-    password:
-      from_secret: registry_password
-  depends_on:
-  - frontend
-  - backend
-
-volumes:
-- name: cache
-  host:
-    path: /tmp/drone/cache/node_modules
+  - name: deploy-to-volume
+    image: public.ecr.aws/docker/library/busybox:latest
+    commands:
+      - rm -rf /var/www-xrg.es/*
+      - mv backend /var/www-xrg.es/backend
+      - mv frontend/build /var/www-xrg.es/frontend
 
 node:
-  location: home
-
----
-kind: pipeline
-type: docker
-name: deploy
-
-steps:
-- name: run
-  image: docker/compose:1.29.2
-  environment:
-    username:
-      from_secret: registry_username
-    password:
-      from_secret: registry_password  
-  commands:
-    - echo $username
-    - docker login -u $username -p $password https://registry.xrg.io
-    - docker-compose -f docker/docker-compose.prod.yml stop
-    #- docker-compose -f docker/docker-compose.prod.yml rm -f
-    - docker-compose -f docker/docker-compose.prod.yml pull
-    - docker-compose -f docker/docker-compose.prod.yml up -d
-  volumes:
-  - name: host_docker_sock
-    path: /var/run/docker.sock
-
-volumes:
-- name: host_docker_sock
-  host:
-    path: /var/run/docker.sock
-
-node:
-  location: do1
-
-depends_on:
-- build
+  location: hub
