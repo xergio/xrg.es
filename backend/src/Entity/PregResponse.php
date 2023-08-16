@@ -18,7 +18,10 @@ class PregResponse
         public readonly ?string $returnValue,
     ) {
         if (preg_last_error() !== PREG_NO_ERROR) {
-            throw new Exception('preg_last_error() = '. preg_last_error_msg());
+            $error = error_get_last();
+            $detail = preg_last_error() === PREG_INTERNAL_ERROR && !is_null($error) ? (': ' . $error['message']) : '';
+
+            throw new Exception('preg_last_error() = ' . preg_last_error_msg() . $detail);
         }
     }
 }
