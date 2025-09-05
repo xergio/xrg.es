@@ -1,4 +1,4 @@
-[![Build Status](https://ci.sergio.am/api/badges/code/xrg.es/status.svg)](https://ci.sergio.am/code/xrg.es)
+[![Build Status](https://sergio.am/code/xrg.es/actions/workflows/deploy/badge.svg?style=flat-square)](https://sergio.am/code/xrg.es)
 
 For more info: `cd docker`
 

@@ -1,0 +1,32 @@
+name: www-xrg.es
+
+on: [push]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+
+      - name: Build Backend
+        run: |
+          cd ${{ gitea.workspace }}/backend && composer install && composer dump-autoload --classmap-authoritative && composer dump-env prod && ls -la
+
+      - name: Build Frontend
+        run: |
+          hash=${{env.GITHUB_SHA}}
+          cd ${{ gitea.workspace }}/frontend && npm install && REACT_APP_GIT_SHA="${hash::10}" npm run build && ls -la
+
+#      - name: Deploy All
+#        run: |
+#          apt-get update && apt-get install -y rsync
+#          rsync -av --delete --exclude '.git' --exclude '.gitea' --exclude '.env' ${{ gitea.workspace }}/backend/ /var/www-xrg.es/backend/
+#          rsync -av --delete --exclude '.git' --exclude '.gitea' --exclude '.env' ${{ gitea.workspace }}/frontend/build/ /var/www-xrg.es/frontend/
+#          mkdir -p /var/www-xrg.es/backend/var && chown -R '82:82' /var/www-xrg.es/backend/var
