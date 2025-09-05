@@ -17,7 +17,7 @@ jobs:
 
       - name: Build Backend
         run: |
-          cd ${{ gitea.workspace }}/backend && composer install --no-plugins && composer dump-autoload --classmap-authoritative && composer dump-env prod && ls -la
+          cd ${{ gitea.workspace }}/backend && composer install && composer dump-autoload --classmap-authoritative && composer dump-env prod && ls -la
 
       - name: Build Frontend
         run: |
