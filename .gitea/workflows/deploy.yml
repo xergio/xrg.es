@@ -18,15 +18,18 @@ jobs:
 
       - name: Build Backend
         run: |
+          set -x
           cd ${{ gitea.workspace }}/backend && composer install && composer dump-autoload --classmap-authoritative && composer dump-env prod && ls -la
 
       - name: Build Frontend
         run: |
+          set -x
           hash=${{env.GITHUB_SHA}}
           cd ${{ gitea.workspace }}/frontend && npm install && REACT_APP_GIT_SHA="${hash::10}" npm run build && ls -la build
 
       - name: Deploy All
         run: |
+          set -x
           apt-get update && apt-get install -y rsync
           rsync -rclpv --delete --exclude '.git' --exclude '.gitignore' --exclude '.gitea' --exclude '.env' ${{ gitea.workspace }}/backend/ /var/www-xrg.es/backend/
           rsync -rclpv --delete --exclude '.git' --exclude '.gitignore' --exclude '.gitea' --exclude '.env' ${{ gitea.workspace }}/frontend/build/ /var/www-xrg.es/frontend/
