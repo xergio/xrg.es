@@ -22,7 +22,7 @@ jobs:
       - name: Build Frontend
         run: |
           hash=${{env.GITHUB_SHA}}
-          cd ${{ gitea.workspace }}/frontend && npm install && REACT_APP_GIT_SHA="${hash::10}" npm run build && ls -la
+          cd ${{ gitea.workspace }}/frontend && npm install && REACT_APP_GIT_SHA="${hash::10}" npm run build && ls -la build
 
 #      - name: Deploy All
 #        run: |
