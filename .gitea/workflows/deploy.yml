@@ -24,9 +24,9 @@ jobs:
           hash=${{env.GITHUB_SHA}}
           cd ${{ gitea.workspace }}/frontend && npm install && REACT_APP_GIT_SHA="${hash::10}" npm run build && ls -la build
 
-#      - name: Deploy All
-#        run: |
-#          apt-get update && apt-get install -y rsync
-#          rsync -av --delete --exclude '.git' --exclude '.gitea' --exclude '.env' ${{ gitea.workspace }}/backend/ /var/www-xrg.es/backend/
-#          rsync -av --delete --exclude '.git' --exclude '.gitea' --exclude '.env' ${{ gitea.workspace }}/frontend/build/ /var/www-xrg.es/frontend/
-#          mkdir -p /var/www-xrg.es/backend/var && chown -R '82:82' /var/www-xrg.es/backend/var
+      - name: Deploy All
+        run: |
+          apt-get update && apt-get install -y rsync
+          rsync -av --delete --exclude '.git' --exclude '.gitea' --exclude '.env' ${{ gitea.workspace }}/backend/ /var/www-xrg.es/backend/
+          rsync -av --delete --exclude '.git' --exclude '.gitea' --exclude '.env' ${{ gitea.workspace }}/frontend/build/ /var/www-xrg.es/frontend/
+          mkdir -p /var/www-xrg.es/backend/var && chown -R '82:82' /var/www-xrg.es/backend/var
