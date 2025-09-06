@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import { BsTwitter } from "react-icons/bs";
-
 export default class Footer extends Component {
   render() {
     return (
