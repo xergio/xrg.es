@@ -28,6 +28,6 @@ jobs:
       - name: Deploy All
         run: |
           apt-get update && apt-get install -y rsync
-          rsync -av --delete --exclude '.git' --exclude '.gitea' --exclude '.env' ${{ gitea.workspace }}/backend/ /var/www-xrg.es/backend/
-          rsync -av --delete --exclude '.git' --exclude '.gitea' --exclude '.env' ${{ gitea.workspace }}/frontend/build/ /var/www-xrg.es/frontend/
+          rsync -rclpv --delete --exclude '.git' --exclude '.gitignore' --exclude '.gitea' --exclude '.env' ${{ gitea.workspace }}/backend/ /var/www-xrg.es/backend/
+          rsync -rclpv --delete --exclude '.git' --exclude '.gitignore' --exclude '.gitea' --exclude '.env' ${{ gitea.workspace }}/frontend/build/ /var/www-xrg.es/frontend/
           mkdir -p /var/www-xrg.es/backend/var && chown -R '82:82' /var/www-xrg.es/backend/var
